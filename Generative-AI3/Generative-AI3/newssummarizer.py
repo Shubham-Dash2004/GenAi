@@ -2,12 +2,13 @@ from dotenv import load_dotenv
 load_dotenv()
 from langchain_community.tools.tavily_search import TavilySearchResults
 from langchain_mistralai import ChatMistralAI
+from langchain_groq import ChatGroq
 from langchain_core.prompts import ChatPromptTemplate
 from langchain_core.output_parsers import StrOutputParser
 
 search_tool = TavilySearchResults(max_result = 5)
 
-llm = ChatMistralAI(model = "mistral-small-2506")
+llm = ChatGroq(model="openai/gpt-oss-20b")
 
 prompt = ChatPromptTemplate.from_template(
     """
@@ -28,6 +29,6 @@ result = chain.invoke({"news" : news_result})
 print(result)
 
 
-print(search_tool.description)
-print(search_tool.name)
-print(search_tool.args)
+print("description:", search_tool.description)
+print("name:", search_tool.name)
+print("arguments:", search_tool.args)
